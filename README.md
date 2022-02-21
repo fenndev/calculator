@@ -56,7 +56,8 @@ For HTML, I'm going to use Flexbox to create a grid that contains a `display`, n
     3. Create a function `operate()` that takes in a string `operator` and two numbers
         1. `operate()` will call one of the operation functions based on the string `operator` and pass them the two numbers provided.
         2. `operate()` will be called as a result of pressing the = button IF `currentNum`, `operatingNum`, and `operator` are valid and filled
-    4. 
+    4. Create a `updateDisplay()` function that is called every time a button is pressed.
+        1. `updateDisplay()` will take `currentNum`, `operatingNum`, and the `operator` and add them on the display as a string for easy viewing
 
 ---
 
