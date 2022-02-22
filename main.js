@@ -106,14 +106,14 @@ function addNumberButtonFunctions(numButton) {
         if(!operatorSelected)
             return;
         else {
-            if(currentNum.length < 9) {
-                currentNum += numButton.textContent;
-                operationString += numButton.textContent;
-                displayText.textContent = operationString;
-            }
+            currentNum += numButton.textContent;
+            operationString += numButton.textContent;
+            displayText.textContent = operationString;
         }
     }
     else {
+        if(currentNum[0] == "0" && !currentNum.includes("."))
+            return;
         if(currentNum.length < 9) {
             currentNum += numButton.textContent;
             operationString += numButton.textContent;
@@ -148,9 +148,8 @@ function addOperatorButtonFunctions(opButton) {
             onOperatorClick(opButton, "\u00F7");
             break;
         case "equals":
-            if(!storedNum1 && !storedNum2) {
+            if(!storedNum1 && !storedNum2)
                 return;
-            };
             if(storedNum1) {
                 if(storedNum2)
                     operate(operatorSelected, +storedNum1, +storedNum2);
@@ -165,12 +164,15 @@ function addOperatorButtonFunctions(opButton) {
         case "decimal":
             if(currentNum.includes("."))
                 return;
-            if(currentNum.length == 0) {
+            else if(!currentNum) {
+                if(storedNum1 && !operatorSelected)
+                    return;
                 currentNum = "0";
+                operationString += "0";
             }
-            currentNum = currentNum + ".";
+            currentNum += ".";
             operationString += ".";
-            displayText.textContent = currentNum;
+            displayText.textContent = operationString;
             break;
     }
 }
