@@ -54,9 +54,10 @@ opButtons.forEach(opButton => {
         switch(opButton.id) {
             case "backspace":
                 if(currentNum) {
-                    let backspacedNum = currentNum.slice(0, -1);
-                    currentNum = backspacedNum;
-                    displayText.textContent = backspacedNum;
+                    let newNum = currentNum.slice(0, -1);
+                    currentNum = newNum;
+                    operationString = operationString.slice(0, -1);
+                    displayText.textContent = operationString;
                 }
                 break;
             case "clear":
