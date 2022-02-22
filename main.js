@@ -3,7 +3,7 @@
 let displayText = document.querySelector(".results-text");
 let numBody = document.querySelector(".num-body");
 let numButtons = numBody.querySelectorAll("button");
-let opBody = document.querySelector(".operator-buttons");
+let opBody = document.querySelector(".operator-container");
 let opButtons = opBody.querySelectorAll("button");
 
 let backspaceButton = document.querySelector("#backspace");
