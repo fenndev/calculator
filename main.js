@@ -27,82 +27,17 @@ let operationString = "";
 
 numButtons.forEach(numButton => {
     numButton.addEventListener('click', () => {
-        if(!currentNum && storedNum1) {
-            if(!operatorSelected)
-                return;
-            else {
-                if(currentNum.length < 9) {
-                    currentNum += numButton.textContent;
-                    operationString += numButton.textContent;
-                    displayText.textContent = operationString;
-                }
-            }
-        }
-        else {
-            if(currentNum.length < 9) {
-                currentNum += numButton.textContent;
-                operationString += numButton.textContent;
-                displayText.textContent = operationString;
-            }
-        }
-        
+        addNumberButtonFunctions(numButton);
     })
 });
 
 opButtons.forEach(opButton => {
     opButton.addEventListener('click', () => {
-        switch(opButton.id) {
-            case "backspace":
-                if(currentNum) {
-                    let newNum = currentNum.slice(0, -1);
-                    currentNum = newNum;
-                    operationString = operationString.slice(0, -1);
-                    displayText.textContent = operationString;
-                }
-                break;
-            case "clear":
-                clearCalc();
-                break;
-            case "add":
-                onOperatorClick(opButton, "+");
-                break;
-            case "subtract":
-                onOperatorClick(opButton, "-");
-                break;
-            case "multiply":
-                onOperatorClick(opButton, "\u00D7");
-                break;
-            case "divide":
-                onOperatorClick(opButton, "\u00F7");
-                break;
-            case "equals":
-                if(!storedNum1 && !storedNum2) {
-                    return;
-                };
-                if(storedNum1) {
-                    if(storedNum2)
-                        operate(operatorSelected, +storedNum1, +storedNum2);
-                    else if(currentNum) {
-                        storedNum2 = currentNum;
-                        operate(operatorSelected, +storedNum1, +storedNum2);
-                    }
-                    else
-                        return;
-                }
-                break;
-            case "decimal":
-                if(currentNum.includes("."))
-                    return;
-                if(currentNum.length == 0) {
-                    currentNum = "0";
-                }
-                currentNum = currentNum + ".";
-                operationString += ".";
-                displayText.textContent = currentNum;
-                break;
-        }
+        addOperatorButtonFunctions(opButton);
     })
 });
+
+/* Main Functions */
 
 function operate(operator, firstNum, secondNum) {
     let resultNum = 0;
@@ -137,6 +72,17 @@ function operate(operator, firstNum, secondNum) {
     operatorSelected = "";
 }
 
+function clearCalc() {
+    displayText.textContent = "Results Here";
+    operationString = "";
+    currentNum = "";
+    storedNum1 = "";
+    storedNum2 = "";
+    operatorSelected = "";
+}
+
+/* Basic Math Functions */
+
 function add(firstNum, secondNum) {
     return +(firstNum + secondNum);
 }
@@ -151,6 +97,82 @@ function multiply(firstNum, secondNum) {
 
 function divide(firstNum, secondNum) {
     return firstNum / secondNum;
+}
+
+/* Abstracted Button Functions */
+
+function addNumberButtonFunctions(numButton) {
+    if(!currentNum && storedNum1) {
+        if(!operatorSelected)
+            return;
+        else {
+            if(currentNum.length < 9) {
+                currentNum += numButton.textContent;
+                operationString += numButton.textContent;
+                displayText.textContent = operationString;
+            }
+        }
+    }
+    else {
+        if(currentNum.length < 9) {
+            currentNum += numButton.textContent;
+            operationString += numButton.textContent;
+            displayText.textContent = operationString;
+        }
+    }
+}
+
+function addOperatorButtonFunctions(opButton) {
+    switch(opButton.id) {
+        case "backspace":
+            if(currentNum) {
+                let newNum = currentNum.slice(0, -1);
+                currentNum = newNum;
+                operationString = operationString.slice(0, -1);
+                displayText.textContent = operationString;
+            }
+            break;
+        case "clear":
+            clearCalc();
+            break;
+        case "add":
+            onOperatorClick(opButton, "+");
+            break;
+        case "subtract":
+            onOperatorClick(opButton, "-");
+            break;
+        case "multiply":
+            onOperatorClick(opButton, "\u00D7");
+            break;
+        case "divide":
+            onOperatorClick(opButton, "\u00F7");
+            break;
+        case "equals":
+            if(!storedNum1 && !storedNum2) {
+                return;
+            };
+            if(storedNum1) {
+                if(storedNum2)
+                    operate(operatorSelected, +storedNum1, +storedNum2);
+                else if(currentNum) {
+                    storedNum2 = currentNum;
+                    operate(operatorSelected, +storedNum1, +storedNum2);
+                }
+                else
+                    return;
+            }
+            break;
+        case "decimal":
+            if(currentNum.includes("."))
+                return;
+            if(currentNum.length == 0) {
+                currentNum = "0";
+            }
+            currentNum = currentNum + ".";
+            operationString += ".";
+            displayText.textContent = currentNum;
+            break;
+    }
 }
 
 function onOperatorClick(opButton, operatorSymbol) {
@@ -184,11 +206,3 @@ function onOperatorClick(opButton, operatorSymbol) {
     }
 }
 
-function clearCalc() {
-    displayText.textContent = "Results Here";
-    operationString = "";
-    currentNum = "";
-    storedNum1 = "";
-    storedNum2 = "";
-    operatorSelected = "";
-}
