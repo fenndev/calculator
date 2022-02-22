@@ -6,6 +6,7 @@ let numButtons = numBody.querySelectorAll("button");
 let opBody = document.querySelector(".operator-buttons");
 let opButtons = opBody.querySelectorAll("button");
 
+let backspaceButton = document.querySelector("#backspace");
 let clearButton = document.querySelector("#clear");
 let addButton = document.querySelector("#add");
 let subtractButton = document.querySelector("#subtract");
@@ -29,13 +30,18 @@ numButtons.forEach(numButton => {
         if(!currentNum && storedNum1) {
             if(!operatorSelected)
                 return;
-            else
-                currentNum += numButton.textContent;
-                displayText.textContent = currentNum;
+            else {
+                if(currentNum.length < 9) {
+                    currentNum += numButton.textContent;
+                    displayText.textContent = currentNum;
+                }
+            }
         }
         else {
-            currentNum += numButton.textContent;
-            displayText.textContent = currentNum;
+            if(currentNum.length < 9) {
+                currentNum += numButton.textContent;
+                displayText.textContent = currentNum;
+            }
         }
         
     })
@@ -44,6 +50,13 @@ numButtons.forEach(numButton => {
 opButtons.forEach(opButton => {
     opButton.addEventListener('click', () => {
         switch(opButton.id) {
+            case "backspace":
+                if(currentNum) {
+                    let backspacedNum = currentNum.slice(0, -1);
+                    currentNum = backspacedNum;
+                    displayText.textContent = backspacedNum;
+                }
+                break;
             case "clear":
                 clearCalc();
                 break;
@@ -81,7 +94,7 @@ opButtons.forEach(opButton => {
                     currentNum = "0";
                 }
                 currentNum = currentNum + ".";
-                console.log(currentNum);
+                displayText.textContent = currentNum;
                 break;
         }
     })
@@ -108,6 +121,9 @@ function operate(operator, firstNum, secondNum) {
                 return;
             }
             break;
+    }
+    if(resultNum.toString().length > 9) {
+        resultNum = resultNum.toExponential(4);
     }
     storedNum1 = resultNum.toString();
     displayText.textContent = storedNum1;

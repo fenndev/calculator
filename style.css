@@ -57,12 +57,19 @@ body {
 
 .num-body button {
     height: 100%;
+    font-size: 24px;
 }
 
 .operator-buttons {
     display: flex;
     flex-direction: column;
     width: 10%;
+}
+.operator-buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
 }
 
 .top-row, .middle-row, .bottom-row, .zero-row {
