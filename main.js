@@ -33,14 +33,16 @@ numButtons.forEach(numButton => {
             else {
                 if(currentNum.length < 9) {
                     currentNum += numButton.textContent;
-                    displayText.textContent = currentNum;
+                    operationString += numButton.textContent;
+                    displayText.textContent = operationString;
                 }
             }
         }
         else {
             if(currentNum.length < 9) {
                 currentNum += numButton.textContent;
-                displayText.textContent = currentNum;
+                operationString += numButton.textContent;
+                displayText.textContent = operationString;
             }
         }
         
@@ -61,16 +63,16 @@ opButtons.forEach(opButton => {
                 clearCalc();
                 break;
             case "add":
-                onOperatorClick(opButton);
+                onOperatorClick(opButton, "+");
                 break;
             case "subtract":
-                onOperatorClick(opButton);
+                onOperatorClick(opButton, "-");
                 break;
             case "multiply":
-                onOperatorClick(opButton);
+                onOperatorClick(opButton, "\u00D7");
                 break;
             case "divide":
-                onOperatorClick(opButton);
+                onOperatorClick(opButton, "\u00F7");
                 break;
             case "equals":
                 if(!storedNum1 && !storedNum2) {
@@ -94,6 +96,7 @@ opButtons.forEach(opButton => {
                     currentNum = "0";
                 }
                 currentNum = currentNum + ".";
+                operationString += ".";
                 displayText.textContent = currentNum;
                 break;
         }
@@ -127,6 +130,7 @@ function operate(operator, firstNum, secondNum) {
     }
     storedNum1 = resultNum.toString();
     displayText.textContent = storedNum1;
+    operationString = storedNum1;
     currentNum = "";
     storedNum2 = "";
     operatorSelected = "";
@@ -148,7 +152,7 @@ function divide(firstNum, secondNum) {
     return firstNum / secondNum;
 }
 
-function onOperatorClick(opButton) {
+function onOperatorClick(opButton, operatorSymbol) {
     if(!currentNum && !storedNum1)
         return;
     if(currentNum || storedNum1) {
@@ -156,22 +160,32 @@ function onOperatorClick(opButton) {
             storedNum2 = currentNum;
             operatorSelected = opButton.id;
             operate(operatorSelected, storedNum1, storedNum2);
+            operationString += ` ${operatorSymbol} `;
+            displayText.textContent = operationString;
+            operatorSelected = opButton.id;
         }
         else if(currentNum && !storedNum1) {
+            if(operatorSelected)
+                return;
             storedNum1 = currentNum;
             operatorSelected = opButton.id;
             currentNum = "";
-            displayText.textContent = `${opButton.textContent}`
+            operationString += ` ${operatorSymbol} `;
+            displayText.textContent = operationString;
         }
         else {
+            if(operatorSelected)
+                return;
             operatorSelected = opButton.id;
-            displayText.textContent = `${opButton.textContent}`
+            operationString += ` ${operatorSymbol} `;
+            displayText.textContent = operationString;
         }
     }
 }
 
 function clearCalc() {
     displayText.textContent = "Results Here";
+    operationString = "";
     currentNum = "";
     storedNum1 = "";
     storedNum2 = "";
