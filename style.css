@@ -11,10 +11,12 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    font-family: 'Roboto', sans-serif;
 }
 .container {
     height: inherit;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
@@ -23,6 +25,7 @@ body {
 button {
     border: 1px solid #898b8f;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
 }
 
 button:hover {
@@ -31,6 +34,13 @@ button:hover {
 
 button:active {
     filter: brightness(120%);
+}
+
+.emoji {
+    text-align: center;
+    font-size: 90px;
+    margin-bottom: 30px;
+    color: #202020;
 }
 
 .calc-container {
