@@ -49,13 +49,13 @@ body {
     justify-content: space-between;
 }
 
-.num-buttons {
+.num-body {
     display: flex;
     flex-direction: column;
     width: 90%;
 }
 
-.num-buttons button {
+.num-body button {
     height: 100%;
 }
 
@@ -72,6 +72,6 @@ body {
 }
 
 .top-row, .middle-row, .bottom-row, .zero-row,
-.num-buttons button, .operator-buttons button {
+.num-body button, .operator-buttons button {
     flex: 1 1 0px;
 }
