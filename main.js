@@ -25,17 +25,9 @@ let operationString = "";
 
 /* Event Listeners */
 
-numButtons.forEach(numButton => {
-    numButton.addEventListener('click', () => {
-        addNumberButtonFunctions(numButton);
-    })
-});
+numButtons.forEach(numButton => {numButton.addEventListener('click', () => addNumberButtonFunctions(numButton))});
 
-opButtons.forEach(opButton => {
-    opButton.addEventListener('click', () => {
-        addOperatorButtonFunctions(opButton);
-    })
-});
+opButtons.forEach(opButton => { opButton.addEventListener('click', () => addOperatorButtonFunctions(opButton))});
 
 /* Main Functions */
 
@@ -52,8 +44,7 @@ function operate(operator, firstNum, secondNum) {
             resultNum = multiply(firstNum, secondNum);
             break;
         case "divide":
-            if(secondNum != 0)
-                resultNum = divide(firstNum, secondNum);
+            if(secondNum != 0) resultNum = divide(firstNum, secondNum);
             else {
                 alert("Can't divide by zero! What were you thinking?!");
                 clearCalc();
@@ -61,9 +52,7 @@ function operate(operator, firstNum, secondNum) {
             }
             break;
     }
-    if(resultNum.toString().length > 9) {
-        resultNum = resultNum.toExponential(4);
-    }
+    if(resultNum.toString().length > 9) resultNum = resultNum.toExponential(4);
     storedNum1 = resultNum.toString();
     displayText.textContent = storedNum1;
     operationString = storedNum1;
@@ -95,8 +84,7 @@ const divide = (firstNum, secondNum) => firstNum / secondNum;
 
 function addNumberButtonFunctions(numButton) {
     if(!currentNum && storedNum1) {
-        if(!operatorSelected)
-            return;
+        if(!operatorSelected) return;
         else {
             currentNum += numButton.textContent;
             operationString += numButton.textContent;
@@ -104,8 +92,7 @@ function addNumberButtonFunctions(numButton) {
         }
     }
     else {
-        if(currentNum[0] == "0" && !currentNum.includes("."))
-            return;
+        if(currentNum[0] == "0" && !currentNum.includes(".")) return;
         if(currentNum.length < 9) {
             currentNum += numButton.textContent;
             operationString += numButton.textContent;
@@ -154,11 +141,9 @@ function addOperatorButtonFunctions(opButton) {
             }
             break;
         case "decimal":
-            if(currentNum.includes("."))
-                return;
+            if(currentNum.includes(".")) return;
             else if(!currentNum) {
-                if(storedNum1 && !operatorSelected)
-                    return;
+                if(storedNum1 && !operatorSelected) return;
                 currentNum = "0";
                 operationString += "0";
             }
@@ -170,8 +155,7 @@ function addOperatorButtonFunctions(opButton) {
 }
 
 function onOperatorClick(opButton, operatorSymbol) {
-    if(!currentNum && !storedNum1)
-        return;
+    if(!currentNum && !storedNum1) return;
     if(currentNum || storedNum1) {
         if(currentNum && storedNum1) {
             storedNum2 = currentNum;
@@ -182,8 +166,7 @@ function onOperatorClick(opButton, operatorSymbol) {
             operatorSelected = opButton.id;
         }
         else if(currentNum && !storedNum1) {
-            if(operatorSelected)
-                return;
+            if(operatorSelected) return;
             storedNum1 = currentNum;
             operatorSelected = opButton.id;
             currentNum = "";
@@ -191,8 +174,7 @@ function onOperatorClick(opButton, operatorSymbol) {
             displayText.textContent = operationString;
         }
         else {
-            if(operatorSelected)
-                return;
+            if(operatorSelected) return;
             operatorSelected = opButton.id;
             operationString += ` ${operatorSymbol} `;
             displayText.textContent = operationString;
