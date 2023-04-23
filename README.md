@@ -1,2 +1,3 @@
-# calculator
-Calculator made in HTML, CSS, and JS.
+# Aba-Calc
+
+A simple calculator application made with SolidJS.
