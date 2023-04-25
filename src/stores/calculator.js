@@ -5,6 +5,7 @@ export function useCalculator() {
     const [currentNum, setCurrentNum] = createSignal(0);
     const [storedNum, setStoredNum] = createSignal(null);
     const [operatorSelected, setOperatorSelected] = createSignal(null);
+    // TODO: Rename isNewNumber variables
     const [isNewNumber, setIsNewNumber] = createSignal(true);
 
     // Clear Calculator function
@@ -16,6 +17,10 @@ export function useCalculator() {
         setIsNewNumber(true);
     }
 
+    /* This function checks whether the number clicked is the first number button that has been pressed, and if so,
+    sets it as the current number and changes `setIsNewNumber` to false.
+    If not, it sets the current num to equal 10x the previous number + the new number, effectively concatenating it.
+    */
     function handleNumberClick(num) {
         if (isNewNumber()) {
             setCurrentNum(num);
@@ -27,14 +32,13 @@ export function useCalculator() {
     }
 
     function handleOperatorClick(operator) {
-        if (!isNewNumber()) {
-            if (storedNum() === null) {
-                setStoredNum(currentNum());
-            } else if (operatorSelected()) {
-                const result = operate(operatorSelected(), storedNum(), currentNum());
-                setStoredNum(result);
-                setDisplayText(result);
-            }
+        if (isNewNumber()) return;
+        if (storedNum() === null) {
+            setStoredNum(currentNum());
+        } else if (operatorSelected()) {
+            const result = operate(operatorSelected(), storedNum(), currentNum());
+            setStoredNum(result);
+            setDisplayText(result);
         }
 
         if (operator === 'clear') {
