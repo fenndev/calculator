@@ -3,45 +3,59 @@ import { useCalculator } from './stores/calculator';
 export default function App() {
     const calculator = useCalculator();
     return (
-        <div class="container">
-            <h1 class="title">🧮 Aba-Calc! 🧮</h1>
-            <div class="calc-container">
-                <div class="results-display">
-                    <div class="results-text">Results Here</div>
+        <>
+            <header class="title">
+                <h1>🧮 Aba-Calc! 🧮</h1>
+            </header>
+            <div class="calc">
+                <div class="calc__result">
+                    <p class="calc__result-text">Results Here</p>
                 </div>
-                <div class="calc-body">
-                    <div class="num-body">
-                        <div class="top-row">
-                            <button id="7">7</button>
-                            <button id="8">8</button>
-                            <button id="9">9</button>
-                        </div>
-                        <div class="middle-row">
-                            <button id="4">4</button>
-                            <button id="5">5</button>
-                            <button id="6">6</button>
-                        </div>
-                        <div class="bottom-row">
-                            <button id="1">1</button>
-                            <button id="2">2</button>
-                            <button id="3">3</button>
-                        </div>
-                        <div class="zero-row">
-                            <button id="0">0</button>
+                <div class="calc__body">
+                    <div class="calc__nums">
+                        {/* 
+                         Loops over the numbers 1-9, separating every 3 numbers into
+                         a separate array and returning the result as an array of arrays.
+                         Ultimately creates 3 divs with the calss `calc__num-btns` that contain
+                         3 number buttons each.
+                        */}
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9]
+                            .reduce((numGroup, num, index) => {
+                                if (index % 3 === 0) {
+                                    numGroup.push([]);
+                                }
+                                numGroup[numGroup.length - 1].push(
+                                    <button key={num} data-value={num}>
+                                        {num}
+                                    </button>
+                                );
+                                return numGroup;
+                            }, [])
+                            .map((numGroup) => (
+                                <div class="calc__nums-btns">{numGroup}</div>
+                            ))}
+                        <div class="calc__zero-btn">
+                            <button data-value="0">0</button>
                         </div>
                     </div>
-                    <div class="operator-container">
-                        <button id="backspace">&#9003;</button>
-                        <button onClick={calculator.clearCalc()}>C</button>
-                        <button id="add">&plus;</button>
-                        <button id="subtract">&minus;</button>
-                        <button id="multiply">&times;</button>
-                        <button id="divide">&divide;</button>
-                        <button id="equals">&equals;</button>
-                        <button id="decimal">.</button>
+
+                    <div class="calc__operators">
+                        <button data-operator="backspace">&#9003;</button>
+                        <button data-operator="clear" onClick={calculator.clearCalc()}>
+                            C
+                        </button>
+                        <button data-operator="add">&plus;</button>
+                        <button data-operator="subtract">&minus;</button>
+                        <button data-operator="multiply">&times;</button>
+                        <button data-operator="divide">&divide;</button>
+                        <button data-operator="equals">&equals;</button>
+                        <button data-operator="decimal">.</button>
                     </div>
                 </div>
             </div>
-        </div>
+            <footer>
+                <p>&copy; 2023 fenndev. All rights reserved.</p>
+            </footer>
+        </>
     );
 }
