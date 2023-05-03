@@ -68,7 +68,9 @@ export default function Calculator() {
                 clear();
                 break;
             case 'backspace':
-                // Implement backspace functionality if needed
+                let currentNumString = Number.parseFloat(currentNum().toString().slice(0, -1));
+                if (!currentNumString) setCurrentNum(0);
+                else setCurrentNum(Number.parseFloat(currentNumString));
                 break;
             default:
                 if (operator) {
