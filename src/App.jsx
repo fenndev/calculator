@@ -39,12 +39,14 @@ export default function App() {
                             .map((numGroup) => (
                                 <div class="calc__nums-btns">{numGroup}</div>
                             ))}
-                        <div
-                            class="calc__zero-btn"
-                            onClick={() =>
-                                calculator.handleNumberPress(event.target.dataset.value)
-                            }>
-                            <button data-value="0">0</button>
+                        <div class="calc__zero-btn">
+                            <button
+                                data-value={0}
+                                onClick={() =>
+                                    calculator.handleNumberPress(event.target.dataset.value)
+                                }>
+                                0
+                            </button>
                         </div>
                     </div>
 
