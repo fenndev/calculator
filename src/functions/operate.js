@@ -1,16 +1,16 @@
-function operate(operator, firstNum, secondNum) {
+export default function operate(operator, firstNum, secondNum) {
     let result;
-    switch(operator.toLowerCase()) {
-        case "add":
+    switch (operator.toLowerCase()) {
+        case 'add':
             result = firstNum + secondNum;
             break;
-        case "subtract":
+        case 'subtract':
             result = firstNum - secondNum;
             break;
-        case "multiply":
+        case 'multiply':
             result = firstNum * secondNum;
             break;
-        case "divide":
+        case 'divide':
             result = secondNum === 0 ? null : firstNum / secondNum;
             break;
         default:

@@ -1,7 +1,8 @@
-import { useCalculator } from './stores/calculator';
+import Calculator from './stores/calculator';
+import getOperatorSymbol from './functions/getOperatorSymbol';
 
 export default function App() {
-    const calculator = useCalculator();
+    const calculator = Calculator();
     return (
         <>
             <header class="title">
@@ -40,16 +41,24 @@ export default function App() {
                     </div>
 
                     <div class="calc__operators">
-                        <button data-operator="backspace">&#9003;</button>
-                        <button data-operator="clear" onClick={calculator.clearCalc()}>
-                            C
-                        </button>
-                        <button data-operator="add">&plus;</button>
-                        <button data-operator="subtract">&minus;</button>
-                        <button data-operator="multiply">&times;</button>
-                        <button data-operator="divide">&divide;</button>
-                        <button data-operator="equals">&equals;</button>
-                        <button data-operator="decimal">.</button>
+                        {[
+                            'backspace',
+                            'clear',
+                            'add',
+                            'subtract',
+                            'multiply',
+                            'divide',
+                            'equals',
+                            'decimal',
+                        ].map((operator) => {
+                            return (
+                                <button
+                                    data-operator={operator}
+                                    onClick={calculator.handleOperatorPress(operator)}>
+                                    {getOperatorSymbol(operator)}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
