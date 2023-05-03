@@ -12,6 +12,7 @@ export default function operate(operator, firstNum, secondNum) {
             break;
         case 'divide':
             result = secondNum === 0 ? null : firstNum / secondNum;
+            console.log('secondNum was null!');
             break;
         default:
             result = null;

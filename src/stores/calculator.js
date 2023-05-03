@@ -1,12 +1,14 @@
 import { createEffect, createSignal, onCleanup } from 'solid-js';
 import operate from '../functions/operate';
 import getOperatorSymbol from '../functions/getOperatorSymbol';
+import concatenateNumber from '../functions/concatenateNumber';
 
 export default function Calculator() {
     const [currentNum, setCurrentNum] = createSignal(null);
     const [previousNum, setPreviousNum] = createSignal(null);
     const [operatorSelected, setOperatorSelected] = createSignal(null);
     const [displayText, setDisplayText] = createSignal(0);
+    const [newEntry, setNewEntry] = createSignal(true);
 
     createEffect(() => {
         if (currentNum() != null) setDisplayText(currentNum());
@@ -17,19 +19,21 @@ export default function Calculator() {
         setPreviousNum(null);
         setOperatorSelected(null);
         setDisplayText(0);
-        console.log('I ran!~');
     };
 
     const handleNumberPress = (num) => {
-        if (currentNum() == null) setCurrentNum(num);
-        else if (currentNum() !== null && operatorSelected() == null) {
-            let newNum = currentNum() * 10 + Number.parseFloat(num);
-            setCurrentNum(newNum);
-        } else {
-            setPreviousNum(currentNum());
+        if (newEntry()) {
             setCurrentNum(num);
-            console.log(previousNum());
-            console.log(currentNum());
+            setNewEntry(false);
+        } else {
+            if (!operatorSelected()) {
+                setCurrentNum(concatenateNumber(currentNum(), num));
+            } else {
+                if (!previousNum()) {
+                    setPreviousNum(currentNum());
+                }
+                setCurrentNum(concatenateNumber(currentNum(), num));
+            }
         }
     };
 
@@ -68,8 +72,9 @@ export default function Calculator() {
                 break;
             default:
                 if (operator) {
-                    if (operatorSelected() && !previousNum()) setOperatorSelected(operator);
-                    else if (operatorSelected() && previousNum()) {
+                    if (operatorSelected() && !previousNum()) {
+                        setOperatorSelected(operator);
+                    } else if (operatorSelected() && previousNum()) {
                         setOperatorSelected(operator);
                         setCurrentNum(operate(operatorSelected(), previousNum(), currentNum()));
                         setPreviousNum(currentNum());
@@ -77,6 +82,7 @@ export default function Calculator() {
                         setPreviousNum(currentNum());
                         setOperatorSelected(operator);
                     }
+                    setNewEntry(true);
                 }
                 break;
         }

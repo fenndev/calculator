@@ -39,7 +39,11 @@ export default function App() {
                             .map((numGroup) => (
                                 <div class="calc__nums-btns">{numGroup}</div>
                             ))}
-                        <div class="calc__zero-btn">
+                        <div
+                            class="calc__zero-btn"
+                            onClick={() =>
+                                calculator.handleNumberPress(event.target.dataset.value)
+                            }>
                             <button data-value="0">0</button>
                         </div>
                     </div>
