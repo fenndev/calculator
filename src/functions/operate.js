@@ -14,7 +14,7 @@ export default function operate(operator, firstNum, secondNum) {
             result = secondNum === 0 ? null : firstNum / secondNum;
             break;
         default:
-            result = NaN;
+            result = null;
             break;
     }
     return result;

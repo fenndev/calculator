@@ -10,7 +10,7 @@ export default function App() {
             </header>
             <div class="calc">
                 <div class="calc__result">
-                    <p class="calc__result-text">Results Here</p>
+                    <p class="calc__result-text">{calculator.displayText()}</p>
                 </div>
                 <div class="calc__body">
                     <div class="calc__nums">
@@ -26,7 +26,11 @@ export default function App() {
                                     numGroup.push([]);
                                 }
                                 numGroup[numGroup.length - 1].push(
-                                    <button key={num} data-value={num}>
+                                    <button
+                                        data-value={num}
+                                        onClick={() =>
+                                            calculator.handleNumberPress(event.target.dataset.value)
+                                        }>
                                         {num}
                                     </button>
                                 );
@@ -54,7 +58,11 @@ export default function App() {
                             return (
                                 <button
                                     data-operator={operator}
-                                    onClick={calculator.handleOperatorPress(operator)}>
+                                    onClick={() =>
+                                        calculator.handleOperatorPress(
+                                            event.target.dataset.operator
+                                        )
+                                    }>
                                     {getOperatorSymbol(operator)}
                                 </button>
                             );
