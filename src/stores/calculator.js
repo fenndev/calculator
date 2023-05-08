@@ -37,7 +37,7 @@ export default function Calculator() {
     };
 
     const handleOperatorPress = (operator) => {
-        if (currentNum == null) return;
+        if (currentNum() == null) return;
         switch (operator) {
             case 'decimal':
                 handleDecimal(currentNum, setCurrentNum);
