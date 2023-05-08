@@ -106,6 +106,10 @@ export default function App() {
             </div>
             <footer>
                 <p>&copy; 2023 fenndev. All rights reserved.</p>
+                <p>
+                    See an issue? Report it on{' '}
+                    <a href="https://github.com/fenndev/calculator">Github</a>.
+                </p>
             </footer>
         </main>
     );

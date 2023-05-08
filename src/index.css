@@ -23,6 +23,7 @@
   font-size: 2rem;
   color: #202020;
   flex: 0 1 auto;
+  text-align: center;
 }
 
 .calc {
@@ -88,6 +89,10 @@
   font-size: 2rem;
   color: #eeefef;
   text-align: end;
+}
+
+footer {
+  text-align: center;
 }
 
 /* Button Styling */
