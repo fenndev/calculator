@@ -1,10 +1,38 @@
 import Calculator from './stores/calculator';
 import getOperatorSymbol from './functions/getOperatorSymbol';
+import { onMount } from 'solid-js';
 
 export default function App() {
     const calculator = Calculator();
+    const operatorKeyArray = ['backspace', 'enter', 'c', '.', '+', '-', '*', '/', '='];
+    const numberKeyArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    function handleKeyboardPress(key) {
+        let isNumberKey = numberKeyArray.includes(key);
+        let isOperatorKey = operatorKeyArray.includes(key);
+        if (!isNumberKey && !isOperatorKey) return;
+        else if (isNumberKey) calculator.handleNumberPress(Number.parseInt(key));
+        else calculator.handleOperatorPress(operatorMap[key]);
+    }
+
+    const operatorMap = {
+        backspace: 'backspace',
+        c: 'clear',
+        '.': 'decimal',
+        '+': 'add',
+        '-': 'subtract',
+        '*': 'multiply',
+        '/': 'divide',
+        '=': 'equals',
+        enter: 'equals',
+    };
+
+    onMount(() => {
+        document.body.addEventListener('keydown', (e) => handleKeyboardPress(e.key.toLowerCase()));
+    });
+
     return (
-        <>
+        <main id="root">
             <header class="title">
                 <h1>🧮 Aba-Calc! 🧮</h1>
             </header>
@@ -79,6 +107,6 @@ export default function App() {
             <footer>
                 <p>&copy; 2023 fenndev. All rights reserved.</p>
             </footer>
-        </>
+        </main>
     );
 }
