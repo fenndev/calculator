@@ -1,7 +1,7 @@
 {
   "name": "aba-calc",
-  "version": "0.0.1",
-  "description": "A simple calculator application made with SolidJS.",
+  "version": "1.0.0",
+  "description": "A calculator application made with SolidJS.",
   "scripts": {
     "start": "vite",
     "dev": "vite",
