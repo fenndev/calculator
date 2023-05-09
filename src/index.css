@@ -104,9 +104,9 @@ button {
 }
 
 button:hover {
-  filter: brightness(110%);
+  filter: brightness(130%);
 }
 
 button:active {
-  filter: brightness(120%);
+  filter: brightness(150%);
 }
